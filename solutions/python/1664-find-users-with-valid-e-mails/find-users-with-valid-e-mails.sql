@@ -1,5 +1,6 @@
-# Write your MySQL query statement below
+/* Write your T-SQL query statement below */
 
 select user_id, name, mail
 from Users
-where mail regexp '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode\\.com$';
+where mail like '[a-zA-Z]%@leetcode.com'
+AND mail NOT LIKE '%[^a-zA-Z0-9_.-]%@leetcode.com';
