@@ -1,6 +1,13 @@
 # Write your MySQL query statement below
-select distinct a.num ConsecutiveNums
-from Logs a
-join Logs b on b.id = a.id+1 and a.num=b.num
-join Logs c on c.id = b.id+1 and b.num=c.num
+with cte as (
+    select  num from Logs group by num having count(*)>=3
+)
+
+select distinct num as ConsecutiveNums from (
+select num
+,lag(num,1) over(order by id) prev_num
+,lead(num,1) over(order by id) next_num
+from Logs
+) A
+where num = prev_num and num= next_num
 ;
